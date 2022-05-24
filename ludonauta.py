@@ -3,6 +3,7 @@ import asyncio
 from bs4 import BeautifulSoup as bs
 import pandas as pd
 import re
+from time import perf_counter
 
 
 async def get_page(session, url):
@@ -61,7 +62,9 @@ if __name__ == '__main__':
         'https://www.ludonauta.es/juegos-mesas-tiendas/listar-por-tienda/dracotienda/page:2',
         'https://www.ludonauta.es/juegos-mesas-tiendas/listar-por-tienda/dracotienda/page:3'
     ]
-
+    start = perf_counter()
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     results = asyncio.run(main(urls))
     print(parse(results))
+    stop = perf_counter()
+    print("time taken:", stop - start)
